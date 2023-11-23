@@ -1,10 +1,10 @@
 #include<stdio.h>
-int top=0,size=100;
-char post[100];
+int top=0,size=10;
+char a[10];
 
 int isfull()
 {
-	if(top>=size)
+	if(top==size)
 		return 1;
 	else
 		return 0;
@@ -20,46 +20,26 @@ int isempty()
 
 void push(char value)
 {
-	if(isfull()==1)
-		printf("The Stack is full!\n");
-	else
-		post[top++]=value;
+	//if(isfull()==1)
+	//	printf("The Stack is full!\n");
+	//else
+		a[top++]=value;
 }
 
 char pop()
 {
-	if(isempty()==1)
-		printf("The Stack is Empty!\n");
-	else
-		return post[--top];
+	//if(isempty()==1)
+	//	printf("The Stack is Empty!\n");
+	//else
+		return a[--top];
 }
 
 char peek()
 {
-	if(isempty()==1)
-		printf("The Stack is Empty!\n");
-	else
-		return post[top-1];
-}
-
-void display()
-{
-	if(isempty()==1)
-		printf("The Stack is Empty!\n");
-	else
-	{
-		printf("\nStack is:\n");
-		int i=top-1;
-		for(;i>=0;i--)
-			printf("%c\n",post[i]);
-		printf("\n");
-	}
-}
-
-void displaypost()
-{
-	for(int i=0;post[i]!='\0';i++)
-		printf("%c",post[i]);
+	//if(isempty()==1)
+	//	printf("The Stack is Empty!\n");
+	//else
+		return a[top-1];
 }
 
 int instackprio(char c)
@@ -96,47 +76,43 @@ int inputprio(char c)
 			return (3);
 			break;
 		case '^':
-			return (5);
+			return (6);
 			break;
 	}
 }
 
-
-
-
 void main()
 {
-	char inf[100],token,c;
+	char inf[100],post[100];
 	int i=0,j=0;
 	printf("Enter the Infix expression:\n");
 	scanf("%s",inf);
-	while (inf[i]!='\0')
+	for(i=0;inf[i]!='\0';i++)
 	{
-		token=inf[i];
 		switch(inf[i])
 		{
 			case '(':
-				push(token);
+				push(inf[i]);
 			case '+':
 			case '-':
 			case '*':
 			case '/':
 			case '^':
-				while((!isempty() && instackprio(peek()))>inputprio(token))
-				post[j++]=pop();
-				push(token);
+				while(!isempty() && inputprio(inf[i])<instackprio(peek()))
+					post[j++]=pop();
+				push(inf[i]);
 				break;
 			case ')':
-				while((c=pop())!='(')
-				post[j++]=c;
+				while(peek()!='(')
+				post[j++]=pop();
+				pop();
 				break;
 			default:
-				post[j++]=token;
+				post[j++]=inf[i];
 		}
-		//printf("\nToken=%c",token);
-		//display();
-		//displaypost(post,i);
-		i++;
 	}
-	displaypost();
+	while(!isempty())
+		post[j++]=pop();
+	post[j]='\0';
+	puts(post);	
 }
