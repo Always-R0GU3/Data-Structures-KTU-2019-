@@ -3,7 +3,6 @@ void readnum(int [],int);
 void in_sort(int [],int);
 void printnum(int [],int);
 
-
 void main()
 {
     int n;
