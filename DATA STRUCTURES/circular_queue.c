@@ -57,16 +57,16 @@ void display()
 		printf("The Queue is Empty!\n");
 	else
 		printf("\nThe Queue is:\n");
-		if(f<r)
+		if(f<=r)
 		{
-			for(int i=f;i<n;i++)
+			for(int i=f;i<=r;i++)
 				printf("%d\n",q[i]);
 		}
-		else if(f>r)
+		else
 		{
 			for(int i=f;i<n;i++)
 				printf("%d\n",q[i]);
-			for(int j=0;j<f;j++)
+			for(int j=0;j<=r;j++)
 				printf("%d\n",q[j]);
 		}
 }
