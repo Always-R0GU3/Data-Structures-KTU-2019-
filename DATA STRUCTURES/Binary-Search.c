@@ -38,9 +38,8 @@ int binary_search(int a[],int num,int n)
             return mid;
         else if(num>a[mid])
             top=mid+1;
-        else if(num<a[mid])
-            bot=mid-1;
         else
-            return -1;
+            bot=mid-1;
     }
+    return -1;
 }
